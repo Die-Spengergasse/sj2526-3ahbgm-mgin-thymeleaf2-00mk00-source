@@ -15,6 +15,7 @@
             </tr>
         </thead>
         <tbody>
+        // eine Tabelle mit den Patienten, die in der Datenbank gespeichert sind. Es wird über die Liste der Patienten iteriert und für jeden Patienten wird eine Zeile mit Name und Geburtsdatum erstellt.
             <tr th:each="p : ${patients}">
                 <td th:text="${p.name}"></td>
                 <td th:text="${p.birth}"></td>
