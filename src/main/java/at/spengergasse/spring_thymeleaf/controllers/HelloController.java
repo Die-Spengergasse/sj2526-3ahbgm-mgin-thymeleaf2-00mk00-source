@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 @Controller
 public class HelloController {
 
-    @GetMapping("")
+    @GetMapping("/")
     public  String index(Model model) {
         //add Date to model
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Neues Medikament hinzufügen</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #e0f0ff, #f5faff);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .header {
+            background-color: #007BFF;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 12px;
+            margin-top: 20px;
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+        }
+
+        .main-content {
+            margin-top: 40px;
+        }
+
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 25px;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            margin-bottom: 15px;
+            padding: 12px;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .btn-medikament {
+            background-color: #007BFF;
+            color: white;
+            border-radius: 6px;
+            padding: 10px 20px;
+            transition: 0.3s;
+            border: none;
+            display: inline-block;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-medikament:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <div class="header">
+        <h1>Neues Medikament hinzufügen</h1>
+    </div>
+
+    <!-- Formular -->
+    <div class="main-content">
+        <div class="card">
+            <form th:action="@{/medikament/add}" th:object="${medikament}" method="post">
+
+                <label>Medikament</label>
+                <input type="text" th:field="*{wirkstoff}" class="form-control" placeholder="Wirkstoff Name">
+
+                <label>Verfallsdatum</label>
+                <input type="date" th:field="*{verfallsdatum}" class="form-control" placeholder="Verfallsdatum">
+
+                <label>Rezeptpflichtig? Ja=1 / Nein=0</label>
+                <input type="number" min="0" max="1" th:field="*{rezeptpflichtig}" class="form-control" placeholder="Rezeptpflichtig">
+
+                <label>Menge in g</label>
+                <input min="0" type="number" th:field="*{menge}" class="form-control" placeholder="Menge">
+
+                <label>Einnahmedauer in Tagen</label>
+                <input min="0" type="number" th:field="*{einnahmedauer}" class="form-control" placeholder="Einnahmedauer">
+
+                <!-- Buttons nebeneinander -->
+                <div class="d-flex gap-2 mt-4">
+                    <button type="submit" class="btn-medikament flex-fill">Speichern</button>
+                    <a href="/" class="btn-medikament flex-fill">Zur Startseite</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

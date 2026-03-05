@@ -23,7 +23,7 @@
         }
 
         .main-content {
-            margin-top: 40px; /* weiter nach unten setzen */
+            margin-top: 40px;
         }
 
         .card {
@@ -38,6 +38,7 @@
             border-radius: 8px;
             padding: 15px;
             margin-bottom: 15px;
+            position: relative;
         }
 
         .med-field h5 {
@@ -55,11 +56,31 @@
             border-radius: 6px;
             padding: 10px 20px;
             transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
         }
 
         .btn-medikament:hover {
             background-color: #0056b3;
             color: white;
+        }
+
+        .btn-delete {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: #dc3545;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-delete:hover {
+            background-color: #a71d2a;
         }
 
     </style>
@@ -70,27 +91,32 @@
     <!-- Header -->
     <div class="header">
         <h1>MediListe - Alles im Griff</h1>
-
     </div>
 
     <!-- Hauptbereich -->
     <div class="main-content">
-        <!-- Medikamentenübersicht -->
         <div class="card">
             <div class="card-body">
-                <!-- Einzelne Medikamentenfelder (dynamisch mit Thymeleaf füllbar) -->
-                <div class="med-field" th:each="medikament : ${medikamente}">
-                    <h5 th:text="${medikament.wirkstoff}">Wirkstoff</h5>
-                    <p>Dosis: <span th:text="${medikament.menge}">0</span> mg</p>
-                    <p>Einnahme: <span th:text="${medikament.m_einnahmedauer}">täglich</span></p>
-                    <p>Verfallsdatum: <span th:text="${medikament.m_verfallsdatum}">dd.MM.yyyy</span></p>
-                    <p th:text="${medikament.m_rezeptpflichtig ? 'Rezeptpflichtig' : 'Nicht rezeptpflichtig'}"></p>
+                <!-- Einzelne Medikamentenfelder -->
+                <div class="med-field" th:each="m : ${medikamente}">
+                    <h5 th:text="${m.wirkstoff}">Wirkstoff</h5>
+                    <p>Menge: <span th:text="${m.menge}"></span> g</p>
+                    <p>Einnahmedauer: <span th:text="${m.einnahmedauer}"></span> Tage</p>
+                    <p>Verfallsdatum: <span th:text="${m.verfallsdatum}"></span></p>
+                    <p th:text="${m.rezeptpflichtig ? 'Rezeptpflichtig' : 'Nicht rezeptpflichtig'}"></p>
+
+                    <!-- Löschen-Button -->
+                    <form th:action="@{/medikament/delete/{id}(id=${m.id})}" method="post" style="display:inline;">
+                        <button type="submit" class="btn-delete">Löschen</button>
+                    </form>
                 </div>
 
-                <!-- Button -->
-                <div class="mt-3">
-                    <a href="/medikament/list" class="btn btn-medikament">Medikamentenliste verwalten</a>
+                <!-- Zwei Buttons nebeneinander -->
+                <div class="d-flex gap-2 mt-3">
+                    <a href="/medikament/add" class="btn-medikament flex-fill">Neues Medikament hinzufügen</a>
+                    <a href="/" class="btn-medikament flex-fill">Zur Startseite</a>
                 </div>
+
             </div>
         </div>
     </div>
